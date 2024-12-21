@@ -683,6 +683,71 @@ bool CameraDriver::setupCameraStreamStructs()
         //---   For bounded feature values (e.g. frame rate), use function that will also get
         //---   the bounds and truncate the value accordingly
 
+        //--- Trigger Mode
+        tmp_feature_name = "TriggerMode";
+        RCLCPP_DEBUG(logger_, "Evaluating 'AcquisitionControl.%s' for stream %i.",
+                     tmp_feature_name.c_str(), i);
+        is_parameter_set = getAcquisitionControlParameter(tmp_feature_name, tmp_param_value);
+        if (is_parameter_set)
+            setFeatureValueFromParameter<std::string>(tmp_feature_name, tmp_param_value, i);
+        getFeatureValue<std::string>(tmp_feature_name, acq_ctrl.trigger_mode);
+        if (is_parameter_set &&
+            !isParameterValueEqualTo<std::string>(tmp_param_value, acq_ctrl.trigger_mode, i))
+            config_warn_msgs_.push_back("Stream " + std::to_string(i) + ": " +
+            "'" + tmp_feature_name + "' is not as specified.");
+
+        //--- Trigger Source
+        tmp_feature_name = "TriggerSource";
+        RCLCPP_DEBUG(logger_, "Evaluating 'AcquisitionControl.%s' for stream %i.",
+                     tmp_feature_name.c_str(), i);
+        is_parameter_set = getAcquisitionControlParameter(tmp_feature_name, tmp_param_value);
+        if (is_parameter_set)
+            setFeatureValueFromParameter<std::string>(tmp_feature_name, tmp_param_value, i);
+        getFeatureValue<std::string>(tmp_feature_name, acq_ctrl.trigger_source);
+        if (is_parameter_set &&
+            !isParameterValueEqualTo<std::string>(tmp_param_value, acq_ctrl.trigger_source, i))
+            config_warn_msgs_.push_back("Stream " + std::to_string(i) + ": " +
+            "'" + tmp_feature_name + "' is not as specified.");
+
+        //--- Line Selector
+        tmp_feature_name = "LineSelector";
+        RCLCPP_DEBUG(logger_, "Evaluating 'AcquisitionControl.%s' for stream %i.",
+                     tmp_feature_name.c_str(), i);
+        is_parameter_set = getAcquisitionControlParameter(tmp_feature_name, tmp_param_value);
+        if (is_parameter_set)
+            setFeatureValueFromParameter<std::string>(tmp_feature_name, tmp_param_value, i);
+        getFeatureValue<std::string>(tmp_feature_name, acq_ctrl.line_selector);
+        if (is_parameter_set &&
+            !isParameterValueEqualTo<std::string>(tmp_param_value, acq_ctrl.line_selector, i))
+            config_warn_msgs_.push_back("Stream " + std::to_string(i) + ": " +
+            "'" + tmp_feature_name + "' is not as specified.");
+
+        //--- Line Mode
+        tmp_feature_name = "LineMode";
+        RCLCPP_DEBUG(logger_, "Evaluating 'AcquisitionControl.%s' for stream %i.",
+                     tmp_feature_name.c_str(), i);
+        is_parameter_set = getAcquisitionControlParameter(tmp_feature_name, tmp_param_value);
+        if (is_parameter_set)
+            setFeatureValueFromParameter<std::string>(tmp_feature_name, tmp_param_value, i);
+        getFeatureValue<std::string>(tmp_feature_name, acq_ctrl.line_mode);
+        if (is_parameter_set &&
+            !isParameterValueEqualTo<std::string>(tmp_param_value, acq_ctrl.line_mode, i))
+            config_warn_msgs_.push_back("Stream " + std::to_string(i) + ": " +
+            "'" + tmp_feature_name + "' is not as specified.");
+
+        //--- Line Source
+        tmp_feature_name = "LineSource";
+        RCLCPP_DEBUG(logger_, "Evaluating 'AcquisitionControl.%s' for stream %i.",
+                     tmp_feature_name.c_str(), i);
+        is_parameter_set = getAcquisitionControlParameter(tmp_feature_name, tmp_param_value);
+        if (is_parameter_set)
+            setFeatureValueFromParameter<std::string>(tmp_feature_name, tmp_param_value, i);
+        getFeatureValue<std::string>(tmp_feature_name, acq_ctrl.line_source);
+        if (is_parameter_set &&
+            !isParameterValueEqualTo<std::string>(tmp_param_value, acq_ctrl.line_source, i))
+            config_warn_msgs_.push_back("Stream " + std::to_string(i) + ": " +
+                                        "'" + tmp_feature_name + "' is not as specified.");
+
         //--- Acquisition Mode
         tmp_feature_name = "AcquisitionMode";
         RCLCPP_DEBUG(logger_, "Evaluating 'AcquisitionControl.%s' for stream %i.",
@@ -1978,6 +2043,16 @@ void CameraDriver::printCameraConfiguration() const
         if (is_verbose_enable_)
             RCLCPP_INFO(logger_, "    Image Height Bound:  [%i,%i]",
                         ROI.height_min, ROI.height_max);
+
+        RCLCPP_INFO(logger_, "    Trigger Mode:        %s", ACQ_CTRL.trigger_mode.c_str());
+
+        RCLCPP_INFO(logger_, "    Trigger Source:      %s", ACQ_CTRL.trigger_source.c_str());
+
+        RCLCPP_INFO(logger_, "    Line Selector:       %s", ACQ_CTRL.line_selector.c_str());
+
+        RCLCPP_INFO(logger_, "    Line Mode:           %s", ACQ_CTRL.line_mode.c_str());
+
+        RCLCPP_INFO(logger_, "    Line Source:         %s", ACQ_CTRL.line_source.c_str());
 
         RCLCPP_INFO(logger_, "    Acquisition Mode:    %s", ACQ_CTRL.acquisition_mode.c_str());
 

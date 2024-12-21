@@ -162,6 +162,22 @@ struct AcquisitionControl
     /// Number of frames to acquire when 'MultiFrame' is selected as acquisition mode.
     int frame_count = 0;
 
+    /// Setting the mode for the selected trigger.
+    std::string trigger_mode = "n/a";
+
+    /// Setting the signal source for the selected trigger.
+    std::string trigger_source = "n/a";
+
+    /// Selects the I/O line to configure. Once a line has been selected, all changes to the line
+    /// settings will be applied to the selected line.
+    std::string line_selector = "n/a";
+
+    /// Sets the mode for the selected line.
+    std::string line_mode = "n/a";
+
+    /// Sets the source signal for the selected line (if the selected line is an output).
+    std::string line_source = "n/a";
+
     /// Exposure mode used for acquisition.
     std::string exposure_mode = "n/a";
 
